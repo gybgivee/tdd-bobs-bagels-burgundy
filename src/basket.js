@@ -22,15 +22,26 @@ class Basket {
     }
     addItem(itemName, itemQuantity) {
 
+        const checkSize = this.basketSize - this.basketCapacity()
 
         const product = this.getMenu();
+        const total = (itemQuantity*product[itemName]).toFixed(2)
 
         const insideBasket = {
             item: itemName,
             quantity: itemQuantity,
-            price: product[itemName]
+            price: product[itemName],
+            total: parseFloat(total)
         }
-        this.basket.push(insideBasket);
+
+        if (checkSize >= itemQuantity) {
+
+            this.basket.push(insideBasket);
+
+            return this.basket
+        }
+
+        return "Basket full, Please choose a bigger basket."
 
     }
 
@@ -52,24 +63,22 @@ class Basket {
     }
 
     basketCapacity() {
-        const totalCapacity = this.basket.reduce((total, quantity) => { return total + quantity.quantity }, 0)
-        if (totalCapacity > this.basketSize) {
-            return "Basket full, Please choose a bigger basket."
-        }
+        const currentBasketCapacity = this.basket.reduce((total, element) => { return total + element.quantity }, 0)
+       
+        return currentBasketCapacity
     }
 
     priceChecker(itemName) {
-        const fullMenu = this.getMenu();
-        for (const items in fullMenu)
-            if (itemName === items) { return fullMenu[items] }
+
+        const product = this.getMenu();
+
+        return product[itemName]
     }
 
     basketTotal() {
-        let eachItem = []
-        for (let i = 0; i < this.basket.length; i++) {
-            eachItem.push(this.basket[i].quantity * this.basket[i].price)
-        }
-        const totalPrice = eachItem.reduce((total, quantity) => { return total + quantity }, 0)
+       
+        const totalPrice = this.basket.reduce((total, element) => { return total + element.total }, 0)
+        
         return ("£" + totalPrice)
     }
 }
