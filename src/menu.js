@@ -7,6 +7,7 @@ return {
     brownie: 3.99,
     chocolateBagel: 4.99 
 }
+
 }
 }
 

@@ -1,39 +1,54 @@
-const MENU = require("./menu.js")
-const smallBasket = 5;
-const mediumBasket = 10;
-const largeBasket = 15;
-
 class Basket {
 
-    constructor(capacity = smallBasket) {
-        this.basket = []
-        this.basketSize = capacity
+
+    constructor(basket = [], capacity = 5) {
+        this.basket = basket;
+        this.basketSize = capacity;
+
     }
     getBasket() {
         return this.basket
     }
-    addItem(itemName, itemQuantity) {
-        const fullMenu = MENU.GetMenu()
-        for (const items in fullMenu) {
-            if (items === itemName) {
-                const insideBasket = {
-                    item: itemName,
-                    quantity: itemQuantity,
-                    price: fullMenu[items]
-                }
-                this.basket.push(insideBasket)
-            }
+    getMenu() {
+
+        const menu =
+        {
+            bagel: 2.99,
+            brownie: 3.99,
+            chocolateBagel: 4.99
         }
+
+        return menu;
+    }
+    addItem(itemName, itemQuantity) {
+
+
+        const product = this.getMenu();
+
+        const insideBasket = {
+            item: itemName,
+            quantity: itemQuantity,
+            price: product[itemName]
+        }
+        this.basket.push(insideBasket);
+
     }
 
     removeItem(itemName) {
-        for (let i = 0; i < this.basket.length; i++)
-            if (this.basket[i].item === itemName) {
-                this.basket.splice(i, 1)
-                return this.basket
+
+        const myBasket = this.basket;
+ 
+
+        for (let i = 0; i < myBasket.length; i++){
+
+            if (myBasket[i].item === itemName) {
+                myBasket.splice(i, 1)
+                return myBasket
             }
-            else if (this.basket[i].item !== itemName)
+            else if (myBasket.item !== itemName)
                 return "This item is not in the basket."
+        }
+            
     }
 
     basketCapacity() {
@@ -44,7 +59,7 @@ class Basket {
     }
 
     priceChecker(itemName) {
-        const fullMenu = MENU.GetMenu()
+        const fullMenu = this.getMenu();
         for (const items in fullMenu)
             if (itemName === items) { return fullMenu[items] }
     }
