@@ -1,9 +1,9 @@
 class Basket {
 
 
-    constructor(basket = [], capacity = 5) {
+    constructor(basket = [], limit = 5) {
         this.basket = basket;
-        this.basketSize = capacity;
+        this.limit = limit;
 
     }
     getBasket() {
@@ -22,7 +22,7 @@ class Basket {
     }
     addItem(itemName, itemQuantity) {
 
-        const checkSize = this.basketSize - this.basketCapacity()
+        const checkSize = this.limit - this.basketCapacity()
 
         const product = this.getMenu();
         const total = (itemQuantity*product[itemName]).toFixed(2)
